@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+  namespace: mohamedhedibenjdida
+
+  name: exam-webapp-color
+
+  labels:
+    app: exam-webapp-color
+
+spec:
+  replicas: 3
+
+  selector:
+    matchLabels:
+      app: exam-webapp-color
+
+  template:
+    metadata:
+      labels:
+        app: exam-webapp-color
+
+    spec:
+      containers:
+        - name: exam-webapp-color
+
+          image: exam-webapp-color
+
+          ports:
+            - containerPort: 80
+
+          volumeMounts:
+            - name: data-volume
+
+              mountPath: /tmp/data
+
+      volumes:
+        - name: data-volume
+
+          persistentVolumeClaim:
+            claimName: exam-webapp-color-pvc

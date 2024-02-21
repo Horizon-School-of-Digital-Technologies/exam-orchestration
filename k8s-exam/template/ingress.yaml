@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  name: exam-webapp-color
+  namespace: mohamedhedibenjdida
+spec:
+  ingressClassName: exam-webapp-color
+  tls:
+    - hosts:
+        - mohamedhedibenjdida-color.horizon-workspaces.com
+      secretName: nginx-general-tls
+  rules:
+    - host: mohamedhedibenjdida-color.horizon-workspaces.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: exam-webapp-color
+                port:
+                  number: 80
